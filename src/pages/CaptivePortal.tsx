@@ -74,32 +74,38 @@ export default function CaptivePortal() {
   }
 
   const handlePayment = async () => {
-    if (!phone || phone.length < 10) {
+    // Basic phone validation
+    const cleanPhone = phone.trim().replace(/\s+/g, '')
+    if (!cleanPhone || cleanPhone.length < 10) {
       toast.error('Enter a valid phone number (e.g. 0712345678)')
       return
     }
+    
     if (!selectedPlan) return
     setPaying(true)
     try {
       const res = await api.post('/payments/initiate', {
-        phone_number: phone,
+        phone_number: cleanPhone,
         plan_id: selectedPlan.id,
       })
       setPaymentId(res.data.payment_id)
       setStep('paying')
       toast.success('STK push sent! Check your phone for M-Pesa prompt.')
     } catch (err: any) {
-      toast.error(err.response?.data?.detail || 'Payment initiation failed.')
+      const errorData = err.response?.data
+      const message = errorData?.details || errorData?.detail || errorData?.error || 'Payment initiation failed. Please try again.'
+      toast.error(message)
       setPaying(false)
     }
   }
 
   const handleVoucherRedeem = async () => {
+    const cleanPhone = phone.trim().replace(/\s+/g, '')
     if (!voucherCode.trim()) {
       toast.error('Enter a voucher code')
       return
     }
-    if (!phone || phone.length < 10) {
+    if (!cleanPhone || cleanPhone.length < 10) {
       toast.error('Enter your phone number first')
       return
     }
@@ -107,12 +113,14 @@ export default function CaptivePortal() {
     try {
       await api.post('/vouchers/redeem', {
         code: voucherCode.trim().toUpperCase(),
-        phone_number: phone,
+        phone_number: cleanPhone,
       })
       setStep('success')
       toast.success('Voucher redeemed! Internet access activated.')
     } catch (err: any) {
-      toast.error(err.response?.data?.detail || 'Voucher redemption failed.')
+      const errorData = err.response?.data
+      const message = errorData?.details || errorData?.detail || errorData?.error || 'Voucher redemption failed.'
+      toast.error(message)
     } finally {
       setPaying(false)
     }
