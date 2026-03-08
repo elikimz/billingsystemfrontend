@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Wifi, CreditCard, CheckCircle, Clock, Loader2, AlertCircle, XCircle } from 'lucide-react'
 import api from '../api/client'
 import toast from 'react-hot-toast'
