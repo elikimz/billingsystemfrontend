@@ -19,7 +19,9 @@ export default function AdminLogin() {
       toast.success('Welcome back!')
       navigate('/admin/dashboard')
     } catch (err: any) {
-      toast.error(err.response?.data?.detail || 'Login failed. Check your credentials.')
+      const errorData = err.response?.data
+      const message = errorData?.details || errorData?.detail || errorData?.error || 'Login failed. Check your credentials.'
+      toast.error(message)
     } finally {
       setLoading(false)
     }
