@@ -15,6 +15,7 @@ import SmsLogs from "./pages/admin/SmsLogs"
 import AuditLogs from "./pages/admin/AuditLogs"
 import Settings from "./pages/admin/Settings"
 import Routers from "./pages/admin/Routers"
+import Admins from "./pages/admin/Admins"
 
 function AdminApp({ children }: { children: React.ReactNode }) {
   return (
@@ -41,6 +42,7 @@ export default function App() {
           <Route path="/admin/routers" element={<AdminApp><Routers /></AdminApp>} />
           <Route path="/admin/sms-logs" element={<AdminApp><SmsLogs /></AdminApp>} />
           <Route path="/admin/audit-logs" element={<AdminApp><AuditLogs /></AdminApp>} />
+          <Route path="/admin/admins" element={<AdminApp><Admins /></AdminApp>} />
           <Route path="/admin/settings" element={<AdminApp><Settings /></AdminApp>} />
           <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="*" element={<Navigate to="/" replace />} />

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import {
   LayoutDashboard, Package, Users, CreditCard, Ticket,
-  MessageSquare, Settings, LogOut, Wifi, Menu, FileText, Router
+  MessageSquare, Settings, LogOut, Wifi, Menu, FileText, Router, Shield
 } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 
@@ -17,6 +17,7 @@ const navItems = [
   { path: '/admin/routers', icon: Router, label: 'Routers' },
   { path: '/admin/sms-logs', icon: MessageSquare, label: 'SMS Logs' },
   { path: '/admin/audit-logs', icon: FileText, label: 'Audit Logs' },
+  { path: '/admin/admins', icon: Shield, label: 'Admins' },
   { path: '/admin/settings', icon: Settings, label: 'Settings' },
 ]
 
