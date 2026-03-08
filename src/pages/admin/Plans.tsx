@@ -20,7 +20,13 @@ export default function Plans() {
   const [saving, setSaving] = useState(false)
 
   const load = () => {
-    api.get('/plans/all').then(r => { setPlans(r.data); setLoading(false) }).catch(() => setLoading(false))
+    setLoading(true)
+    api.get('/plans/all')
+      .then(r => { setPlans(r.data); setLoading(false) })
+      .catch(() => {
+        // /plans/all requires auth; fallback to public endpoint
+        api.get('/plans/').then(r => { setPlans(r.data); setLoading(false) }).catch(() => setLoading(false))
+      })
   }
   useEffect(load, [])
 
